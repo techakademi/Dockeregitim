@@ -1,6 +1,7 @@
 #!/bin/sh                                                                                                       
 Bugun=$(date '+%d-%m-%Y');                                                                                      
-Saat=$(date '+%T');                                                                                             echo "-----------------------"                                                                                  
+Saat=$(date '+%T');                                                                                            
+echo "-----------------------"                                                                                  
 echo "|Merhaba Ben EchoDroid|"                                                                                  
 echo "-----------------------"                                                                                  
 echo -n "Merhaba Isiminiz ?"                                                                                    

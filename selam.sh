@@ -4,7 +4,7 @@ Saat=$(date '+%T');
 echo "-----------------------"                                                                                  
 echo "|Merhaba Ben EchoDroid|"                                                                                  
 echo "-----------------------"                                                                                  
-echo -n "Merhaba Isiminiz ?"                                                                                    
+echo -n "Isiminiz ?"                                                                                    
 read isminiz                                                                                                    
 echo &&                                                                                                         
 echo "Memnun Oldum, $isminiz"                                                                                   

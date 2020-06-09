@@ -2,9 +2,9 @@
 Bugun=$(date '+%d-%m-%Y');
 Saat=$(date "+%H");
 saat=$(date "+%T");
-echo "-----------------------"
-echo "|Merhaba Ben EchoDroid|"
-echo "-----------------------"
+echo "--------------------------"
+echo "|Merhaba Ben EchoDroid V2|"
+echo "--------------------------"
 echo -n "Isiminiz ?"
 read isminiz
 echo &&

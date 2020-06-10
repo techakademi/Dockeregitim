@@ -1,0 +1,9 @@
+FROM alpine:3.12
+
+ENV TZ 'Europe/Istanbul'
+RUN apk update
+RUN apk upgrade
+RUN apk add --update tzdata
+COPY selamv2.sh /bin/
+RUN ["chmod", "+x", "/bin/selamv2.sh"]
+ENTRYPOINT ["/bin/selamv2.sh"]

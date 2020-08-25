@@ -1,0 +1,5 @@
+https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
+
+
+https://code.visualstudio.com/docs/remote/ssh#_getting-started
+

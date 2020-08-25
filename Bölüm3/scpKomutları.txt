@@ -1,0 +1,9 @@
+
+Docker Suncusundan scp ile dosya download etmek için:
+scp [Linux kullanıcı Adı]@[Linux Sunucu IP adresi veya sunucunun adı]:[Download edilecek Dosyanın yolu] [Yerel bilgisayarda kayıt edilecek yol]
+scp root@192.168.1.200:/home/images/imajlar.tar c:\techakademi\yedek\imajlar.tar
+
+Docker Suncusuna scp ile dosya yüklemek etmek için:
+scp [sunucuya gönderilecek dosya yolu veya adı] [Linux kullanıcı Adı]@[Linux Sunucu IP adresi veya sunucunun adı]:[Sunucuda kayıt edilecek yol]
+
+scp c:\techakademi\deneme.txt root@192.168.1.200:/home/images/deneme.txt

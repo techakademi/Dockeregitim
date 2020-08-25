@@ -1,0 +1,17 @@
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+docker build -t havadurumu:1 .
+docker images
+docker run -d -it --rm --name havadurumu -p 3000:3000 havadurumu:1 
+--------------------------------------
+Heroku Komutları
+--------------------------------------
+curl https://cli-assets.heroku.com/install.sh | sh
+heroku login -i
+heroku container:login
+heroku create hvdrm-beta
+heroku container:push -a="hvdrm-beta" web
+heroku container:release -a="hvdrm-beta" web
+heroku logs -a="hvdrm-beta" --tail
+https://hvdrm-beta.herokuapp.com/

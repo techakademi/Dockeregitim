@@ -1,0 +1,98 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker Search Komutları
+--------------------------------------
+docker search centos 
+docker search --limit 3 centos 
+docker search --filter stars=3  centos
+docker search --filter is-automated=true  centos
+docker search --filter is-automated=true --filter stars=3 centos
+docker search --filter is-official=true  --filter stars=3 centos
+--------------------------------------
+Docker Pull Komutları
+--------------------------------------
+docker search alpine
+docker image pull
+docker image pull alpine:3.9.6
+--------------------------------------
+Docker List Komutları
+--------------------------------------
+docker image ls
+docker images
+docker image ls -f "reference=alpine:3*"
+--------------------------------------
+Docker Container Komutları
+--------------------------------------
+docker run alpine:3.9.6 /bin/echo “Merhaba Dünya”
+docker run alpine:3.9.6 /bin/echo “İyi Günler Dünya”
+docker run alpine:3.9.6 /bin/echo “Günaydın”
+docker ps -a
+docker run --name Merhaba -it alpine:3.9.6
+docker exec -it Merhaba /bin/sh
+docker run --name Merhaba2 -d alpine:3.9.6 /bin/sh -c "while true; do echo Merhaba birden Dünayaya Merhaba; sleep 5; done"
+docker logs Merhaba2
+docker attach Merhaba2
+ctrl+c
+docker attach --sig-proxy=false Merhaba2
+ctrl+c
+docker pause Merhaba1
+docker ps
+docker unpause Merhaba1
+--------------------------------------
+Docker Exec Komutları
+--------------------------------------
+docker run --name Echo -d -it alpine:3.10 
+docker exec -it Echo sh -c "echo Öğrendiklerimi  && echo Uygulayarak Öğreniyorum"
+docker exec -it Echo sh -c "echo Dockeri && echo Uygulayarak Öğreniyorum"
+docker container exec -it Echo /bin/sh
+cd home
+cat > deneme.txt
+vi deneme.txt
+ctr+d
+docker stop Echo
+docker start Echo
+--------------------------------------
+Docker Container LS Komutları
+--------------------------------------
+docker container ls
+docker container ls -a
+docker container ls -l
+--------------------------------------
+Docker Container LOGS Komutları
+--------------------------------------
+docker run -p 80:80 -d nginx:latest
+docker container logs (Konteyner Adı veya ID'si)
+--------------------------------------
+Docker Container Stop&Start Komutları
+--------------------------------------
+docker container stop (Konteyner Adı veya ID'si)
+docker stop (Konteyner Adı veya ID'si)
+docker ps
+docker stop $(docker ps -aq)
+docker container start(Konteyner Adı veya ID'si)
+docker start $(docker ps -aq)
+--------------------------------------
+Docker Container RM Komutları
+--------------------------------------
+docker ps -a
+docker rm (Konteyner Adı veya ID'si)
+docker stop $(docker ps -aq)
+--------------------------------------
+Docker Container Prune Komutları
+--------------------------------------
+docker run --name Echo -d -it alpine:3.10 
+docker run --name Echo1 -d -it alpine:3.10 
+docker run --name Echo2 -d -it alpine:3.10 
+docker run --name Echo3 -d -it alpine:3.10 
+docker run --name Echo4 -d -it alpine:3.10 
+docker ps
+docker stop $(docker ps -aq)
+docker container prune
+--------------------------------------
+Docker Container Restart policy Komutları
+--------------------------------------
+docker run --name Echo alpine:3.10  /bin/sh -c "while true; do echo Merhaba ben Echo 5 saniye sonra kendimi imha edeceğim...; sleep 5; exit 1; done"
+docker ps
+docker run --restart always  --name Bozuk alpine:3.10  /bin/sh -c "while true; do echo Merhaba Ben Bozuk 5 saniye sonra kendimi imha edeceğim...; sleep 5; exit 1; done"

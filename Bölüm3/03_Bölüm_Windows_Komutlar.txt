@@ -1,0 +1,43 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker IMAJ DIŞA AKTARMA Komutları
+--------------------------------------
+Bir batch dosyası oluşturacak isek :
+ECHO OFF FOR /f "tokens=*" %%i IN ('docker images --format "{{.ID}} {{.Repository}}:{{.Tag}}"') DO docker save  -o e:/images/allinone.tar %%i
+
+Konsol da doğrudan yazacak isek :
+FOR /f "tokens=*" %G IN ('docker images --format "{{.Repository}}:{{.Tag}}"') DO docker save  -o e:/images/allinone.tar %G
+
+Powershell’de kullanacak isek  :
+docker images -q | % --format "{{.ID}} {{.Repository}}:{{.Tag}}" { docker save $_ -o e:/images/allinone.tar}
+docker images    | % {docker save $_ -o e:/images/allinone.tar}
+
+docker images  --format "{{.Repository}}:{{.Tag}}" | % {docker save $_ -o e:\images\allinone.tar}
+--------------------------------------
+Docker IMAJ İÇERİ AKTARMA Komutları
+--------------------------------------
+Bir batch dosyası oluşturacak isek :
+@ECHO OFF FOR /f "tokens=*" %%i IN ('docker ps -q') DO docker start %%i
+
+Konsol da doğrudan yazacak isek :
+FOR /f "tokens=*" %i IN ('docker ps -q') DO docker start %i
+
+Powershell’de kullanacak isek  :
+docker ps -q | % { docker start $_ }
+--------------------------------------
+Docker REMOVE Komutları
+--------------------------------------
+Imaj Kaldırma
+
+Bir batch dosyası oluşturacak isek :
+@ECHO OFF FOR /f "tokens=*" %%i IN ('docker images --format "{{.ID}}"') DO docker rmi %%i
+
+Konsol da doğrudan yazacak isek :
+FOR /f "tokens=*" %i IN ('docker images --format "{{.ID}}"') DO docker rmi %i
+
+Powershell’de kullanacak isek  :
+docker images -q | % { docker rmi $_ }
+
+docker info | findstr Registry

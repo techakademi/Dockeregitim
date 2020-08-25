@@ -1,0 +1,63 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker Network Oluşturma Komutları
+--------------------------------------
+docker network create --driver bridge wprs-net
+docker network create --driver bridge wprs-back-net
+--------------------------------------
+Docker Öğreniyorum Veritabanı Çalıştırma
+--------------------------------------
+docker run --name dcrogrwp-db --network wprs-back-net \
+-e MYSQL_ROOT_PASSWORD=wpsifre \
+-e MYSQL_DATABASE=dckrogrn-wp \
+-e MYSQL_USER=wordpress \
+-e MYSQL_PASSWORD=wordpress \
+-d mariadb/server:10.3
+--------------------------------------
+Docker Öğreniyorum Wordpress Çalıştırma
+--------------------------------------
+docker run --rm --name dcrogrwp --network wprs-net -p 8080:80 \
+-e WORDPRESS_DB_HOST=dcrogrwp-db \
+-e WORDPRESS_DB_NAME=dckrogrn-wp \
+-e WORDPRESS_DB_USER=wordpress \
+-e WORDPRESS_DB_PASSWORD=wordpress \
+-d wordpress
+docker network connect wprs-back-net dcrogrwp 
+--------------------------------------
+Docker Öğreniyorum phpMyAdmin Çalıştırma
+--------------------------------------
+docker run --name myadmindcrogrwp --network wprs-back-net -p 8181:80 \
+-e PMA_HOST=dcrogrwp-db \
+-e MYSQL_ROOT_PASSWORD=wpsifre \
+-d phpmyadmin/phpmyadmin
+--------------------------------------
+Cloud Öğreniyorum Veritabanı Çalıştırma
+--------------------------------------
+docker run --name cldwp-db --network wprs-back-net \
+-e MYSQL_ROOT_PASSWORD=wpsifre \
+-e MYSQL_DATABASE=cldogrn-wp \
+-e MYSQL_USER=wordpress \
+-e MYSQL_PASSWORD=wordpress \
+-d mariadb/server:10.3
+--------------------------------------
+Cloud Öğreniyorum Wordpress Çalıştırma
+--------------------------------------
+docker run --rm --name cldogrwp --network wprs-net -p 8383:80 \
+-e WORDPRESS_DB_HOST=cldwp-db \
+-e WORDPRESS_DB_NAME=cldogrn-wp \
+-e WORDPRESS_DB_USER=wordpress \
+-e WORDPRESS_DB_PASSWORD=wordpress \
+-d wordpress
+
+docker network connect wprs-back-net cldogrwp 
+--------------------------------------
+Cloud Öğreniyorum phpMyAdmin Çalıştırma
+--------------------------------------
+docker run --name myadminclod --network wprs-back-net -p 8484:80 \
+-e PMA_HOST=cldwp-db \
+-e MYSQL_ROOT_PASSWORD=wpsifre \
+-d phpmyadmin/phpmyadmin
+docker ps
+netinspect.sh

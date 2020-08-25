@@ -1,0 +1,35 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker Host Network Komutları
+--------------------------------------
+docker build -t cldzone-host:1 .
+docker tag cldzone-host:1 techakademi/cldzone-host:1
+docker login
+docker push techakademi/cldzone-host:1
+docker pull techakademi/cldzone-host:1
+docker pull techakademi/ithost:3
+docker pull techakademi/havadrm:1
+imajlar.sh 
+
+docker run -d --rm --network host --name havadurumu techakademi/havadrm:1 	(3000 portu üzerinden bağlantı yapılıyor)
+docker run -d --rm --network host --name cldzonehost techakademi/cldzone-host:1	(8000 portu üzerinden bağlantı yapılıyor)
+docker run -d --rm --network host --name ithost techakademi/ithost:3		(80   portu üzerinden bağlantı yapılıyor)
+kontlist.sh
+
+http://192.168.1.203:3000/	
+http://192.168.1.203:8000/    
+http://192.168.1.203
+
+firewall-cmd --list-ports
+firewall-cmd --permanent --add-port=3000/tcp
+firewall-cmd --permanent --add-port=8000/tcp
+firewall-cmd --permanent --add-port=80/tcp
+firewall-cmd --permanent --remove-port=80/tcp
+firewall-cmd --reload
+firewall-cmd --list-ports
+
+http://192.168.1.203:3000/
+http://192.168.1.203:8000/
+http://192.168.1.203

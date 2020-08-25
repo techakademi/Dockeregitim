@@ -1,0 +1,38 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker Network Komutları
+--------------------------------------
+docker network create --driver bridge loadnet
+--------------------------------------
+Docker Load Balancer Komutları
+--------------------------------------
+docker build -t lb:1 .
+docker run -d --restart always --network loadnet --name dlb -p 81:80 dlb:1
+docker run -d --restart always --network loadnet --name cldzone1 -p 82:8000 techakademi/cldzone-host:1
+docker run -d --restart always --network loadnet --name cldzone2 -p 83:8000 techakademi/cldzone-host:1
+docker run -d --rm --network loadnet --name cldzone3 -p 84:8000 techakademi/cldzone-host:1
+docker run -d --rm --network loadnet --name cldzone4 -p 85:8000 techakademi/cldzone-host:1
+http://192.168.1.200:81 
+docker logs dlb
+--------------------------------------
+Centos Firewall Komutları
+--------------------------------------
+firewall-cmd --list-ports
+firewall-cmd --permanent --add-port=81/tcp
+firewall-cmd --permanent --add-port=82/tcp
+firewall-cmd --permanent --add-port=83/tcp
+firewall-cmd --permanent --add-port=84/tcp
+firewall-cmd --permanent --add-port=85/tcp
+firewall-cmd --reload
+http://192.168.1.200:81/
+--------------------------------------
+Tmux
+--------------------------------------
+tmux_yd.sh
+--------------------------------------
+Apache Benchmark Komutları
+--------------------------------------
+ab -n 10000 -c 500 http://127.0.0.1:81/
+--------------------------------------

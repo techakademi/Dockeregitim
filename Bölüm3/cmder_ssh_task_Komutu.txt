@@ -1,0 +1,2 @@
+cmd /c "%ConEmuDir%\..\git-for-windows\usr\bin\ssh kullanıcı@ip.ad.re.si  
+-new_console:d:%USERPROFILE% "-new_console:t:DckrSrv"

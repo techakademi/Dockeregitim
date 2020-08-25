@@ -1,0 +1,36 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker STOP Komutları
+--------------------------------------
+Bir batch dosyası oluşturacak isek :
+@ECHO OFF FOR /f "tokens=*" %%i IN ('docker ps -q') DO docker stop %%i
+
+Konsol da doğrudan yazacak isek :
+FOR /f "tokens=*" %i IN ('docker ps -q') DO docker stop %i
+
+Powershell’de kullanacak isek  :
+docker ps -q | % { docker stop $_ }
+--------------------------------------
+Docker START Komutları
+--------------------------------------
+Bir batch dosyası oluşturacak isek :
+@ECHO OFF FOR /f "tokens=*" %%i IN ('docker ps -q') DO docker start %%i
+
+Konsol da doğrudan yazacak isek :
+FOR /f "tokens=*" %i IN ('docker ps -q') DO docker start %i
+
+Powershell’de kullanacak isek  :
+docker ps -q | % { docker start $_ }
+--------------------------------------
+Docker REMOVE Komutları
+--------------------------------------
+Bir batch dosyası oluşturacak isek :
+@ECHO OFF FOR /f "tokens=*" %%i IN ('docker ps -q') DO docker rm %%i
+
+Konsol da doğrudan yazacak isek :
+FOR /f "tokens=*" %i IN ('docker ps -q') DO docker rm %i
+
+Powershell’de kullanacak isek  :
+docker ps -q | % { docker rm $_ }

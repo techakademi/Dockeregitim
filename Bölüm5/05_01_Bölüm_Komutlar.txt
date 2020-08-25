@@ -1,0 +1,78 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker Volume Komutları -1
+--------------------------------------
+docker volume ls 
+docker volume create nginx
+docker run -d -it --rm --name nginxvlm -v nginx:/usr/share/nginx/html -p 80:80 nginx:alpine
+docker exec -it nginxvlm /bin/sh
+cd usr/share/nginx/html/
+vi index.html
+docker run -d -it --rm --name nginx -v nginx:/usr/share/nginx/html -p 80:80 nginx:alpine
+docker stop nginx
+cd nginx
+docker run -d -it --rm --name nginx -v nginx:/usr/share/nginx/html -p 80:80 nginx:alpine
+docker stop nginx
+docker run -d -it --rm --name nginx -v nginx:/usr/share/nginx/html:ro -p 80:80 nginx:alpine
+docker exec -it nginx /bin/sh
+cd usr/share/nginx/html/
+vi index.html
+vi index.html
+docker run -d -it --rm --name nginx1 -v nginx:/usr/share/nginx/html -p 80:80 nginx:alpine
+docker run -d -it --rm --name nginx2 -v nginx:/usr/share/nginx/html -p 81:80 nginx:alpine
+docker run -d -it --rm --name nginx3 -v nginx:/usr/share/nginx/html -p 82:80 nginx:alpine
+--------------------------------------
+Docker Volume Bind Mount Komutları -2
+--------------------------------------
+docker run -d -it --volume /home/projeler/ithost:/usr/share/nginx/html:ro -p 80:80 nginx:alpine 
+docker ps 
+docker run -d -it --volume /home/projeler/ithost:/usr/share/nginx/html:ro -p 80:80 nginx:alpine
+--------------------------------------
+Docker FNS Bind Mount Komutları -3
+--------------------------------------
+yum -y install nfs-utils
+docker volume ls
+
+docker volume create --name FNSData --driver local \
+--opt type=nfs4 \
+--opt o=addr=192.168.1.204,rw,rsize=8192,wsize=8192,tcp,timeo=14 \
+--opt device=:/mnt/Docker/DockerData
+
+docker run --name Veriyazici  -d -v FNSData:/veridosya alpine:latest
+docker exec -it Veriyazici /bin/sh
+docker run --rm --name Veriokuyucu -d -it -v FNSData:/veridosya alpine:latest
+docker exec -it Veriokuyucu /bin/sh
+kontdroid.sh
+
+docker volume create --name FNSMysql --driver local \
+--opt type=nfs4 \
+--opt o=addr=192.168.1.204,rw,rsize=8192,wsize=8192,tcp,timeo=14 \
+--opt device=:/mnt/Docker/DockerMysql
+
+docker volume create --name FNSWordpress --driver local \
+--opt type=nfs4 \
+--opt o=addr=192.168.1.204,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14 \
+--opt device=:/mnt/Docker/DockerWordpress
+
+docker run --name dcrogrwp-db --network wprs-back-net \
+-e MYSQL_ROOT_PASSWORD=wpsifre \
+-e MYSQL_DATABASE=dckrogrn-wp \
+-e MYSQL_USER=wordpress \
+-e MYSQL_PASSWORD=wordpress \
+-v FNSMysql:/var/lib/mysql \
+-d mariadb/server:10.3
+
+docker run --rm --name dcrogrwp --network wprs-net -p 8080:80 \
+-e WORDPRESS_DB_HOST=dcrogrwp-db \
+-e WORDPRESS_DB_NAME=dckrogrn-wp \
+-e WORDPRESS_DB_USER=wordpress \
+-e WORDPRESS_DB_PASSWORD=wordpress \
+-v FNSWordpress:/var/www/html/wp-content \
+-d wordpress
+
+docker network connect wprs-back-net dcrogrwp
+docker volume rm FNSWordpress
+docker volume rm FNSMysql
+docker volume rm FNSData

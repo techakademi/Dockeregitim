@@ -1,0 +1,42 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+
+--------------------------------------
+Docker Download linkleri:
+--------------------------------------
+Windows 10 Pro
+https://hub.docker.com/editions/community/docker-ce-desktop-windows
+
+Windows 7-8 ve Home edition
+https://docs.docker.com/toolbox/overview/
+
+Mac’e yüklemek için :
+https://hub.docker.com/editions/community/docker-ce-desktop-mac/
+--------------------------------------
+Download edilecek uygulama linkleri:
+--------------------------------------
+https://www.virtualbox.org/
+http://mirror.fibersunucu.com.tr/centos/7.8.2003/isos/x86_64/
+https://code.visualstudio.com/
+https://cmder.net/
+--------------------------------------
+Github Sanal Makine linkleri:
+--------------------------------------
+Başlatma Komut Dosyası Linki :
+https://github.com/techakademi/Dockeregitim/blob/master/CentosBaslat.bat
+Durdurma Komut Dosyası Linki : 
+https://github.com/techakademi/Dockeregitim/blob/master/CentosKapat.bat
+--------------------------------------
+Centos Komutları		:
+--------------------------------------
+sudo yum -y update
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+sudo yum-config-manager  --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum -y install docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo yum -y install bash-completion
+sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.5/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
+sudo docker run hello-world
+--------------------------------------

@@ -1,0 +1,102 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-
+--------------------------------------
+Docker İmaj Yönetimi Komutları
+--------------------------------------
+docker run --name Echo -d -it alpine:3.12 /bin/sh
+docker container exec -it Echo /bin/sh
+cd bin
+ls
+vi selam.sh 
+insert tuşuna bas
+script içeriğini kopyala
+esc tuşuna bas
+:wq
+chmod +x selam.sh
+ctrl p+q
+docker ps (çalışan konteynerin ID'sini al)
+docker commit --change='CMD ["bin/selam.sh"]' 7b507b0dafbd echodroid:1
+docker images
+docker history echodroid:1
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive:latest echodroid:1
+docker run  --rm --name EchoDROID -it echodroid:1
+--------------------------------------
+Docker Login Komutları
+--------------------------------------
+docker login
+Username: (kendi kullanıcı adınızı girin)
+Password: (kendi parolanıxı girin)
+docker info | grep Registry
+docker logout
+--------------------------------------
+Docker Push Komutları
+--------------------------------------
+docker image ls 
+docker image tag alpine techakademi/alpine 
+docker image ls
+docker image push techakademi/alpine
+docker image tag echodroid:1 techakademi/echodroid 
+docker image push techakademi/echodroid
+docker images
+--------------------------------------
+Docker RMI Komutları
+--------------------------------------
+docker image tag hello-world hello:1
+docker image tag hello-world hello:2 
+docker image tag hello-world hello:3
+docker image ls (imaj ID'sini al)
+docker rmi (imaj ID'si)
+docker rmi hello:1
+docker rmi hello:2
+docker rmi hello:3
+docker image ls
+docker rmi (imaj ID'si)
+docker run --name Deneme1 -d -it alpine:3.12
+docker run --name Deneme2 -d -it alpine:3.12
+docker run --name Deneme3 -d -it alpine:3.12
+docker stop $(docker ps -aq)
+docker rmi alpine
+docker rm  $(docker ps -aq)
+docker rmi $(docker images -aq)
+docker image ls
+--------------------------------------
+Docker IMAGE SAVE&LOAD Komutları
+--------------------------------------
+cd home
+mkdir imajlar
+ls
+docker images
+docker save -o /home/imajlar/echodroid.tar echodroid:1
+docker save $(docker images -aq) -o /home/imajlar/tum_imajlar.tar
+docker rmi -f $(docker images -aq)
+docker images
+docker load -i /home/imajlar/tum_imajlar.tar
+docker images
+docker image prune
+docker save $(docker images --format '{{.Repository}}:{{.Tag}}') -o /home/imajlar/tum_imajlar.tar
+ls /home/imajlar/
+scp root@192.168.1.200:/home/imajlar/tum_imajlar.tar c:\techakademi\yedek\tum_imajlar.tar
+rm /home/imajlar/tum_imajlar.tar
+docker rmi -f $(docker images -aq)
+scp c:\techakademi\yedek\tum_imajlar.tar root@192.168.1.200:/home/imajlar/tum_imajlar.tar
+docker load -i /home/imajlar/tum_imajlar.tar
+docker images
+docker run --rm --name Echodroid -it echodroid:1
+--------------------------------------
+Docker DOCKERFILE Komutları
+--------------------------------------
+mkdir dockerfilerep
+docker build -t echodroid:2  .
+docker images
+docker run --rm -it echodroid:2
+docker build -f dockerfile.selamv2 -t echodroid:2 .
+docker run --name Echodroid -it echodroid:2
+docker images -a
+docker build -f dockerfile.selamv2 -t echodroid:2 .
+docker images -a
+docker image prune 
+docker build -f dockerfile.selamv3 -t echodroid:3 .
+docker run --rm --name Echodroid -it echodroid:3
+docker build -f dockerfile.cntwebv1 -t centosapache:1 .
+docker run --name Websunucu -d -p 80:80 centosapache:1 .

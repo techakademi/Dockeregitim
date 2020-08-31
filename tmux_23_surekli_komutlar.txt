@@ -1,0 +1,42 @@
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-
+
+--------------------------------------
+TMUX Başlatma & Çalıştırma Komutları
+--------------------------------------
+tmux new -s isim		 Session'u bir isim ile başlatma
+tmux a 	 #			 numaralı Session'a bağlan
+tmux a 	 -t session'um		 İsimlendirilmiş Session'a bağlanma
+tmux ls	 			 Session'ları listele
+tmux kill-session -t session'um  İsimli session'u kapat
+
+--------------------------------------
+TMUX Session Yönetimi
+--------------------------------------
+:new				 Yeni session başlat
+S				 Session'ları listele
+$				 Session'u adlandır
+D	 			 Session'dan ayrıl
+:				 Komut satırı
+
+--------------------------------------
+TMUX Pencere Yönetimi
+--------------------------------------
+Ctrl+b C			 Yeni pencere
+Ctrl+b W			 Pencereleri listele
+Ctrl+b N			 Bir sonraki pencere
+Ctrl+b P			 Bir önceki  pencere
+Ctrl+b F			 Pencere bul
+Ctrl+b ,			 Pencere'yi adlandır
+Ctrl+b &			 Pencere'yi kapat
+
+--------------------------------------
+TMUX Pane Yönetimi
+--------------------------------------
+Ctrl+b %			 Pencereyi Dikey böl
+Ctrl+b "			 Pencereyi Yata  böl
+Ctrl+b O			 Bölüm değiştir (A bölümünü B bölümü ile takas et)
+Ctrl+b Q			 Bölüm numaralarını görüntüle
+Ctrl+b X			 Bölümü kapat
+Ctrl+b Yön tuşları		 Bölümler arasında gezinti için kullanılır

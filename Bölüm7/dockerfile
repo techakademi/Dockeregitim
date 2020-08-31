@@ -1,0 +1,8 @@
+FROM alpine:3.12
+
+MAINTAINER Hamza GÜRCAN techakademi@gmail.com
+
+RUN apk update \
+    && apk add stress-ng
+
+ENTRYPOINT ["stress-ng"]

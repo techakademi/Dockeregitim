@@ -1,1 +1,57 @@
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+docker build -t stressdroid:1 .
+docker images 
+docker run -d -it --rm --name Droid1 stressdroid:1  -c 5 -t 5s
+docker ps 
+chmod +x stressdroid.sh 
+cp stressdroid.sh /bin/
 
+--------------------------------------
+monitordroid.sh script içeriği
+--------------------------------------
+#!/bin/bash
+tmux new -s MonitorDroid -d 
+tmux split-window -v 
+tmux selectp -t 1 
+tmux send-keys -t 1 "stressdroid.sh" C-m
+tmux selectp -t 0
+tmux send-keys -t 0 "stats.sh" C-m
+tmux attach-session
+--------------------------------------
+stats.sh script içeriği
+--------------------------------------
+#!/bin/bash
+docker stats --format "table {{.Name}}\t{{.CPUPerc}}\t{{.MemUsage}}\t{{.MemPerc}}\t{{.PIDs}}"
+
+docker  stats
+--------------------------------------
+monitordroid.sh script içeriği
+--------------------------------------
+#!/bin/bash
+docker run -d --rm --name 25_is  --memory 256M  stressdroid:1 -c 25  -t 15s
+docker run -d --rm --name 50_is  --memory 256M  stressdroid:1 -c 50  -t 15s
+docker run -d --rm --name 75_is  --memory 256M  stressdroid:1 -c 75  -t 15s
+docker run -d --rm --name 150_is --memory 256M  stressdroid:1 -c 150 -t 15s
+--------------------------------------
+
+--------------------------------------
+cpudroid.sh script içeriği
+--------------------------------------
+#!/bin/bash
+docker run -d --rm --name 25_is  --cpus .2 --memory 256M  stressdroid:1 -c 25  -t 15s
+docker run -d --rm --name 50_is  --cpus .3 --memory 256M  stressdroid:1 -c 50  -t 15s
+docker run -d --rm --name 75_is  --cpus .5 --memory 512M  stressdroid:1 -c 75  -t 15s
+docker run -d --rm --name 150_is --cpus  1 --memory 512M  stressdroid:1 -c 150 -t 15s
+--------------------------------------
+
+--------------------------------------
+cpusharesdroid.sh script içeriği
+--------------------------------------
+#!/bin/bash
+docker run -d --rm --name 25_is  --cpu-shares 2048 --memory 256M stressdroid:1 -c 25  -t 15s
+docker run -d --rm --name 50_is  --cpu-shares 1024 --memory 256M stressdroid:1 -c 50  -t 15s
+docker run -d --rm --name 75_is  --cpu-shares 512  --memory 512M stressdroid:1 -c 75  -t 15s
+docker run -d --rm --name 150_is --cpu-shares 256  --memory 512M stressdroid:1 -c 150 -t 15s
+--------------------------------------

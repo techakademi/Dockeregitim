@@ -1,0 +1,55 @@
+version: "3.8"
+services:
+    veritabani:
+        container_name: dcrogrwp-db
+        image: mariadb/server:10.3
+        restart: always
+        env_file:
+           - ./mariadb.env
+        networks:
+           - wprs-back-net
+        volumes:
+           - FNSMysql:/var/lib/mysql
+           
+    wordpress:
+        depends_on:
+           - veritabani
+        container_name: dcrogrwp
+        image: wordpress:latest
+        restart: always
+        env_file:
+           - ./wrpress.env
+        networks:
+            - wprs-back-net
+            - wprs-net   
+        ports:
+           - 8080:80
+
+    phpmyadmin:
+        depends_on:
+            - veritabani
+        container_name: myadmin
+        image: phpmyadmin/phpmyadmin
+        restart: always
+        env_file:
+            - ./phpmyadm.env
+        networks:
+            - wprs-back-net
+        ports:
+            - 8181:80
+
+networks:
+    wprs-back-net:
+        external:
+            name: wprs-back-net
+    wprs-net:
+        external:
+            name: wprs-net
+
+volumes:
+    FNSMysql:
+        name: FNSMysql
+        external: true
+    FNSWordpress:
+        name: FNSWordpress
+        external: true

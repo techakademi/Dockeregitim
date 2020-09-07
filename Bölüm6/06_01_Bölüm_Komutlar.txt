@@ -1,6 +1,7 @@
 -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 +≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
 -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+https://github.com/techakademi/Havadurumu.git
 docker build -t havadurumu:1 .
 docker images
 docker run -d -it --rm --name havadurumu -p 3000:3000 havadurumu:1 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 echo ""
 echo -e "\e[31m----------------------------\e[0m"    
 echo -e "\e[1m|(:..:)KontExternator(:..:)|\e[0m"                                                                                                       

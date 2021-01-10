@@ -1,0 +1,8 @@
+cmd /c "%ConEmuDir%\..\git-for-windows\usr\bin\ssh root@192.168.1.73 -new_console:d:%USERPROFILE% -new_console:s50H "-new_console:t:Master" 
+-new_console:P:<Monokai>"
+
+cmd /c "%ConEmuDir%\..\git-for-windows\usr\bin\ssh root@192.168.1.73  -new_console:d:%USERPROFILE% -cur_console:sv "-new_console:t:Master" 
+-new_console:P:<Ubuntu>"
+
+cmd /c "%ConEmuDir%\..\git-for-windows\usr\bin\ssh root@192.168.1.73  -new_console:d:%USERPROFILE% -cur_console:s3TV "-new_console:t:Master" 
+-new_console:P:<Solarized>

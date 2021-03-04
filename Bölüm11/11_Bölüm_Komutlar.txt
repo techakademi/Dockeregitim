@@ -1,0 +1,17 @@
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+----------------Loglama---------------
+docker network create --driver=overlay loglama-lognet
+docker stack deploy coredns -c /paylasim/projeler/infra/CoreDNS/coredns.yml
+docker stack deploy traefik -c /paylasim/projeler/infra/traefik/traefik.yml
+docker stack deploy fekstack -c /paylasim/projeler/infra/fekstack/fek-stack.yml
+docker stack deploy -c /paylasim/projeler/ithost/ithost-stack.yml ithostcomp
+docker stack deploy -c /paylasim/projeler/cldzone/cldzone-V1/cldzone-stack.yml cldzone
+docker stack deploy -c /paylasim/projeler/azurevote/vote-stack.yml azure-vote
+
+---------------------------------------
+
+
+

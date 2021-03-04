@@ -1,0 +1,10 @@
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+---------------Metrikler--------------
+docker stack deploy fekstack -c /paylasim/projeler/infra/fekstack/fek-staack-metric.yml
+---------------------------------------
+
+
+

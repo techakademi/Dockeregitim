@@ -1,0 +1,161 @@
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+------------Cluster Kurulum-----------
+yum -y install epel-release
+yum -y update
+yum -y install system-config-keyboard
+system-config-keyboard trq
+mkdir /media//cdrom
+mount /dev/cdrom /media/cdrom/
+yum -y install make gcc kernel-headers kernel-devel perl dkms bzip2
+reboot
+mount /dev/cdrom /media/cdrom
+/media/cdrom/VBoxLinuxAdditions.run
+cp CentDockSetup.sh /bin/ 
+CentDockSetup.sh
+docker run hello-world
+systemctl start firewalld
+systemctl enable firewalld
+firewall-cmd --zone=public --permanent --add-port=2375/tcp 
+firewall-cmd --zone=public --permanent --add-port=2376/tcp
+firewall-cmd --zone=public --permanent --add-port=2377/tcp 
+firewall-cmd --zone=public --permanent --add-port=7946/tcp
+firewall-cmd --zone=public --permanent --add-port=7946/udp
+firewall-cmd --zone=public --permanent --add-port=4789/udp
+firewall-cmd --reload
+reboot
+--------------------------------------
+
+--------------Swarm------------------- 
+docker swarm init
+docker swarm join --token manager
+docker swarm join --token worker
+docker node ls
+docker node promote Node1.local
+docker node demote Node1.local
+docker node update --availability drain Node1.local
+docker node update --availability pause Node2.local
+docker node update --availability active Node1.local
+docker node update --availability active Node2.local
+docker node update --label-add grup=frontend Node1.techakademi.local
+docker node inspect --format '{{ .Spec.Labels }}' Node1.techakademi.local
+docker service create --name ping  --constraint node.labels.grup==frontend techakademi/ping:1 www.docker.com
+docker node update --label-rm grup Node1.techakademi.local
+docker service create --name ithost -d -p 88:80 techakademi/ithost:1
+docker service ls
+docker service ps ithost 
+docker service update --replicas 3 ithost
+docker service create --replicas 3 --name ithost -d -p 88:80 techakademi/ithost:1
+docker service update --replicas 1 ithost
+docker service create --name cldzone -d -p 91:3000 techakademi/cldzone:1
+docker service scale  ithost=3 cldzone=3 
+docker service ls
+servispsdroid.sh
+docker service scale  ithost=1 cldzone=1 
+servispsdroid.sh
+docker service create  --mode=global --name benkimim -d -p 82:80 techakademi/whoami:1
+whoamidriod.sh
+docker service update --replicas 0 <servis adı> 
+docker service rm benkimim 
+docker network ls
+docker network inspect <network adı> 
+docker network create --driver overlay  alpine-net
+docker network ls
+docker service create --name alpineservis1 --network alpine-net alpine:3.6 ping alpineservis2
+docker service logs alpineservis
+docker service create --name alpineservis2 --network alpine-net alpine:3.6 ping alpineservis1
+docker service logs alpineservis1
+docker service logs alpineservis2
+docker service ls 
+docker inspect alpineservis1 | awk '/Addr/ {print$2}' | sed 's/\/24//g'
+docker  ps -f name=alpineservis1 --quiet
+docker inspect 6df7c030bf52 | awk '/IPv4Address/{print$2}'
+docker service ps alpineservis1 --format "table {{ .ID }}\t{{ .Name }}\t{{ .Node }}" --filter desired-state=running
+docker inspect alpineservis2 | awk '/Addr/ {print$2}' | sed 's/\/24//g'
+docker ps -f name=alpineservis2 --quiet
+docker service ps alpineservis2 --format "table {{ .ID }}\t{{ .Name }}\t{{ .Node }}" --filter desired-state=running
+docker ps -f name=alpineservis2 --quiet
+docker inspect 98689d187c64 | awk '/IPv4Address/{print$2}'
+docker exec -it 98689d187c64 ping alpineservis1
+docker inspect ithost | awk '/Addr/ {print$2}' | sed 's/\/24//g'
+docker  ps -f name=ithost --quiet
+docker inspect cbfc49c67791 | awk '/IPv4Address/{print$2}'
+docker exec -it cbfc49c67791 ping alpineservis2
+docker service create --replicas 6 --name ithost -p 88:80 techakademi/ithost:1
+docker service update --image techakademi/ithost:2 --update-delay 5s --update-order "start-first" ithost
+watch -n 0.1 "docker service inspect --pretty ithost"
+watch -n 0.1 "docker service ps --filter "desired-state=running" ithost"
+docker service update --image techakademi/ithost:3.0 --update-delay 5s --update-order "start-first" --update-failure-action rollback --update-monitor 10s ithost
+docker service update --image techakademi/ithost:3.1 --update-parallelism=2 --update-delay 10s --update-order "start-first" --update-failure-action rollback --update-monitor 10s ithost
+---------------------------------------
+
+------------Swarm Stack---------------- 
+docker network create --driver overlay techcrm
+docker stack deploy -c techcrm-stack1.yml techcrm
+stackgozlem.sh
+servisdroid.sh
+docker stack deploy -c techcrm-stack2.yml techcrm
+docker stack deploy -c techcrm-stack3.yml techcrm
+docker stats
+docker stack deploy -c techcrm-stack4.yml techcrm
+docker service ls 
+docker service update --force service id
+docker service scale techcrm_web=4 
+docker stack rm techcrm
+stackwatchimg.sh
+watch -n 1 "docker service ps techcrm_web --format 'table {{.ID}}\t{{.Name}}\t{{.Image}}\t{{.No de}}\t{{.CurrentState}}' " 
+docker stack deploy -c techcrm-stack5.yml techcrm 
+---------------------------------------
+
+---------Swarm Healthcheck-------------
+docker run  -d --rm --name saglik-kontrolu -p 8080:80 techakademi/saglik-kontrol:1
+curl http://localhost:8080
+ps -aux | grep "nginx"
+
+docker pause saglik-kontrolu
+docker ps --format "table {{.Names}}\t{{.Status}}"
+ps -aux | grep "nginx"
+docker run -d --rm --name saglik-kontrolu1 -p 8180:80 techakademi/saglik-kontrol:1
+docker run -d --rm --name saglik-kontrolu2 -p 8280:80 techakademi/saglik-kontrol:2
+docker run -d --rm --name saglik-kontrolu3 -p 8380:80 techakademi/saglik-kontrol:3
+docker ps --format "table {{.Names}}\t{{.Status}}"
+docker logs --tail 10 saglik-kontrolu2
+docker logs --tail 10 saglik-kontrolu3
+docker stack deploy -c techcrm-stack6.yml techcrm
+docker ps --format "table {{.Names}}\t{{.Status}}"
+
+https://docs.docker.com/engine/reference/commandline/events/#filter-events-by-time 
+docker events -f 'type=container' --format 'Status={{.Status}} Attributes={{.Actor.Attributes.name}}'
+
+---------------------------------------
+
+-----------Swarm Secrets---------------
+printf "Bu gizli bir anahtardır" | docker secret create gizlitest -
+openssl rand -base64 20 | docker secret create gizlianahtar -
+
+docker service  create --name redis --secret gizlitest --secret gizlianahtar redis:alpine
+docker service ls
+nodeconnector.sh
+docker exec $(docker ps --filter name=redis -q) ls -l /run/secrets
+
+ docker exec -it $(docker ps --filter name=redis -q) cat -n /run/secrets/gizlitest /run/secrets/gizlianahtar
+
+openssl rand -base64 20  | docker secret create --label projeadi=redis-dev1 redisdev1 -
+
+docker secret ls --filter label=projeadi
+
+docker secret rm gizlitest
+docker service ls
+docker inspect techcrm_postgres-db | grep "PASSWORD\|password\|Password"
+nano /paylasim/projeler/techcrm/V3/secrets/dbkullanici.txt
+cat /paylasim/projeler/techcrm/V3/secrets/dbkullanici.txt
+docker secret create pgr_dbuser /paylasim/projeler/techcrm/V3/secrets/dbkullanici.txt
+printf "rootman" | docker secret create pgr_dbpass -
+docker secret ls
+docker stack deploy -c /paylasim/projeler/techcrm/V3/techcrm-stack7.yml techcrm
+---------------------------------------
+
+
+

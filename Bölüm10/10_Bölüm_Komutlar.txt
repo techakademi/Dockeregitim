@@ -1,0 +1,18 @@
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
++≧☉_☉≦|T|e|c|h| |A|k|a|d|e|m|i|≧☉_☉≦+
+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+-----------------Traefik---------------
+docker network create --driver=overlay traefik-vekilnet
+docker stack deploy coredns -c /paylasim/projeler/infra/CoreDNS/coredns.yml
+nslookup techakademi.com
+docker stack deploy -c /paylasim/projeler/infra/traefik/traefik.yml traefik
+http://traefik.techakademi.com:8180/dashboard/
+docker stack deploy  -c /paylasim/projeler/infra/traefik/whoami.yml whoami
+docker stack deploy -c /paylasim/projeler/cldzone/cldzone-V1/cldzone-stack.yml cldzone
+docker stack deploy -c /paylasim/projeler/ithost/ithost-stack.yml ithostcomp
+docker stack deploy -c /paylasim/projeler/techcrm/V3/techcrm-stack8.yml techakademicrm
+---------------------------------------
+
+
+
